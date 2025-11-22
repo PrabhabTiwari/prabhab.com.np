@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Softwares - Prabhab Tiwari</title>
-  <link rel="icon" type="image/png" href="logo png.png">  
+  <link rel="icon" type="image/png" href="logo png.png">
   <link rel="stylesheet" href="style.css" />
 
   <link rel="stylesheet" href="style.css" />
 
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 </head>
-<body>
 
+<body>
+  <div class="stars-layer stars-1"></div>
+  <div class="stars-layer stars-2"></div>
   <div class="hero-header">
     <div class="wrapper">
       <header>
-         <div class="prabhab div"> 
- <a href="index.html"><div></div></a></div></p>
-              
+        <div class="prabhab div">
+          <a href="index.html">
+            <div></div>
+          </a>
+        </div>
+        </p>
+
 
         <nav>
           <div class="togglebtn">
@@ -30,19 +34,21 @@
             <span></span>
           </div>
           <ul class="navlinks">
-           <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">Biography</a></li>
-                        <li><a href="project.html">Projects</a></li>
-                        <li> <a href="software.html"> Softwares</a></li>
-                        
-          
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">Biography</a></li>
+            <li><a href="project.html">Projects</a></li>
+            <li> <a href="software.html"> Softwares</a></li>
+
+
           </ul>
         </nav>
       </header>
 
-      <section class="page-title-section" style="padding: 60px 20px 40px; text-align:center; border-bottom:1px solid #ddd; background: linear-gradient(to right, #fff, #fff8dc);">
+      <section class="page-title-section"
+        style="padding: 60px 20px 40px; text-align:center; border-bottom:1px solid #ddd; background: linear-gradient(to right, #fff, #fff8dc);">
         <h1>Softwares</h1>
-        <p class="subtitle" style="color:#666; margin-top:10px;">This page contains somne useful programs and Softwares.</p>
+        <p class="subtitle" style="color:#666; margin-top:10px;">This page contains somne useful programs and Softwares.
+        </p>
       </section>
 
       <main class="container" style="padding: 40px 20px; color:#333; font-size: 1.1rem; line-height: 1.6;">
@@ -50,20 +56,24 @@
 
 
 
-             <div class="projects-container">
+        <div class="projects-container">
 
-    <div class="project-card">
-        <div class="project-title">Microsoft Office</div>
-        <div class="project-description">Use to download and activate the office apps.</div>
-        <a class="project-link" href="https://drive.google.com/drive/folders/1XJCb53XbaXvhY0Ir1qPlLbKqfL0_PFxm?usp=sharing" target="_blank">Click Here</a>
-    </div>
+          <div class="project-card">
+            <div class="project-title">Microsoft Office</div>
+            <div class="project-description">Use to download and activate the office apps.</div>
+            <a class="project-link"
+              href="https://drive.google.com/drive/folders/1XJCb53XbaXvhY0Ir1qPlLbKqfL0_PFxm?usp=sharing"
+              target="_blank">Click Here</a>
+          </div>
 
-<div class="project-card">
-      <div class="project-title">Window Activation</div>
-      <div class="project-description">Use to activate your expire Window.</div>
-       <a class="project-link" href="https://drive.google.com/drive/folders/1XJCb53XbaXvhY0Ir1qPlLbKqfL0_PFxm?usp=sharing" target="_blank">Click Here</a>
-    </div>
-<!--
+          <div class="project-card">
+            <div class="project-title">Window Activation</div>
+            <div class="project-description">Use to activate your expire Window.</div>
+            <a class="project-link"
+              href="https://drive.google.com/drive/folders/1XJCb53XbaXvhY0Ir1qPlLbKqfL0_PFxm?usp=sharing"
+              target="_blank">Click Here</a>
+          </div>
+          <!--
       <div class="project-card">
       <div class="project-title">Forefront Development Solutions</div>
       <div class="project-description"> Here i have made Website for Forefront Development Solutions.</div>
@@ -94,16 +104,17 @@
 
 -->
 
-         
-        </p>
-        <p>
-      
-        </p>
+
+          </p>
+          <p>
+
+          </p>
       </main>
     </div>
   </div>
 
-  <footer class="footer" style="background: linear-gradient(to right, #fff, #fff8dc); padding: 25px 20px; border-top:1px solid #ddd; text-align:center; color:#555; font-size:0.9rem;">
+  <footer class="footer"
+    style="background: linear-gradient(to right, #fff, #fff8dc); padding: 25px 20px; border-top:1px solid #ddd; text-align:center; color:#555; font-size:0.9rem;">
     <div class="footer-container wrapper">
       <p>&copy; 2025 Prabhab Tiwari. All rights reserved.</p>
       <div class="footer-links" style="margin-top:5px;">
@@ -123,6 +134,33 @@
       nav.classList.toggle("open");
     });
   </script>
-</body>
-</html>
+  <script>
+    // Theme Toggle Logic
+    const themeBtn = document.getElementById('theme-toggle');
+    const body = document.body;
 
+    // 1. Check LocalStorage on page load
+    // If user previously chose 'night', apply it immediately
+    if (localStorage.getItem('theme') === 'night') {
+      body.classList.add('night-mode');
+      if (themeBtn) themeBtn.innerHTML = "☀️"; // Change icon to Sun
+    }
+
+    // 2. Button Click Event
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        body.classList.toggle('night-mode');
+
+        if (body.classList.contains('night-mode')) {
+          localStorage.setItem('theme', 'night'); // Save preference
+          themeBtn.innerHTML = "☀️";
+        } else {
+          localStorage.setItem('theme', 'day'); // Save preference
+          themeBtn.innerHTML = "🌙";
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
