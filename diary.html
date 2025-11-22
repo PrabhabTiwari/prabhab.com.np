@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Restricted Access - Prabhab Tiwari</title>
+    <link rel="icon" type="image/png" href="logo png.png">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+    <style>
+        /* --- 1. LOCK SCREEN STYLES --- */
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Default background is the night color, which will be overridden by JS 
+               if the persistent theme is night-mode, making it transparent to show stars */
+            background-color: #050714;
+            z-index: 9999;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* NOTE: The CSS for .stars-container and .stars-container-2 is removed here,
+               as the global .stars-layer from style.css is now used. */
+
+        /* The Login Box (Glass Effect) - Retained as per your last working UI */
+        .login-box {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 45px 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .login-box h2 {
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-box p {
+            color: #ccc;
+        }
+
+        .login-box i {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .login-box input {
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            border-radius: 8px;
+            margin-top: 20px;
+            width: 100%;
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+        }
+
+        .login-box input::placeholder {
+            color: #bbb;
+        }
+
+        .login-box input:focus {
+            border-color: #007BFF;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .login-box button {
+            padding: 12px;
+            width: 100%;
+            margin-top: 15px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .login-box button:hover {
+            background: #0056b3;
+            transform: scale(1.02);
+        }
+
+        .error-msg {
+            color: #ff6b6b;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: none;
+            text-shadow: 0 1px 2px black;
+        }
+
+        /* --- 2. HIDDEN CONTENT STYLES --- */
+        #secret-content {
+            display: none;
+            min-height: 100vh;
+        }
+
+        /* Overrides to ensure unlocked content areas are transparent */
+        #secret-content .page-title-section,
+        #secret-content .hero-header,
+        #secret-content .footer {
+            background: transparent !important;
+        }
+
+        /* New style to remove default link styling from the diary card links */
+        .projects-container a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            /* Make the link occupy the full card area */
+        }
+
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            50% {
+                transform: translateX(10px);
+            }
+
+            75% {
+                transform: translateX(-10px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars-layer stars-1"></div>
+    <div class="stars-layer stars-2"></div>
+
+    <div id="login-overlay">
+        <div class="login-box">
+            <i class="fa-solid fa-moon"></i>
+            <h2>Good Evening</h2>
+            <p>Enter password to access diary</p>
+
+            <input type="password" id="passwordInput" placeholder="Password">
+            <button onclick="checkPassword()">Unlock</button>
+
+            <p id="error-message" class="error-msg">Wrong Password!</p>
+
+            <div style="margin-top: 20px;">
+                <a href="index.html" style="font-size: 0.85rem; color:#aaa; text-decoration:none;">&larr; Back to
+                    Home</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="secret-content">
+
+        <div class="hero-header">
+            <div class="wrapper">
+                <header>
+                    <div class="prabhab div">
+                        <a href="index.html">
+                            <div></div>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <div class="togglebtn">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <ul class="navlinks">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">Biography</a></li>
+                            <li><a href="project.html">Projects</a></li>
+                            <li><a href="software.html">Softwares</a></li>
+                            <li><button id="theme-toggle" class="theme-btn" title="Toggle Night Mode">🌙</button></li>
+                        </ul>
+                    </nav>
+                </header>
+
+                <section class="page-title-section"
+                    style="padding: 60px 20px 40px; text-align:center; border-bottom:1px solid #ddd;">
+                    <h1>My Personal Diary</h1>
+                    <p class="subtitle" style="color:#666; margin-top:10px;">Private thoughts and memories.</p>
+                </section>
+
+                <main class="container" style="padding: 40px 20px; color:#333; font-size: 1.1rem; line-height: 1.6;">
+
+                    <div class="projects-container">
+
+                        <a href="15.pdf" target="_blank" title="View Diary Entry PDF">
+                            <div class="project-card diary-entry">
+                                <div class="diary-date"><i class="fa-regular fa-calendar-check"></i> November 15, 2025
+                                </div>
+                                <div class="project-title">Meet someone special</div>
+                                <div class="project-description">
+                                    On this day and at 12:40 am, I made a special person, and something meaningful
+                                    began.
+                                </div>
+                            </div>
+                        </a>
+                        <!--
+                        <a href="diary_pdfs/november_22_2024.pdf" target="_blank" title="View Diary Entry PDF">
+                            <div class="project-card diary-entry">
+                                <div class="diary-date"><i class="fa-solid fa-user-secret"></i> November 22, 2024</div>
+                                <div class="project-title">Persistent Theme</div>
+                                <div class="project-description">
+                                    Created this hidden section of the website. Only I know the password to get in here.
+                                </div>
+                            </div>
+                        </a>
+-->
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <footer class="footer"
+            style="padding: 25px 20px; border-top:1px solid #ddd; text-align:center; color:#555; font-size:0.9rem;">
+            <div class="footer-container wrapper">
+                <p>&copy; 2025 Prabhab Tiwari. All rights reserved.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- THEME CHECK (Runs first to apply saved theme) ---
+        const themeBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        if (localStorage.getItem('theme') === 'night') {
+            body.classList.add('night-mode');
+            // Make the overlay transparent to show the stars on the body
+            document.getElementById('login-overlay').style.backgroundColor = 'transparent';
+            if (themeBtn) themeBtn.innerHTML = "☀️";
+        } else {
+            // Keep the overlay dark blue to hide the default day background
+            document.getElementById('login-overlay').style.backgroundColor = '#050714';
+        }
+
+        // Handle theme button click (only available after unlock)
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                body.classList.toggle('night-mode');
+
+                if (body.classList.contains('night-mode')) {
+                    localStorage.setItem('theme', 'night');
+                    themeBtn.innerHTML = "☀️";
+                } else {
+                    localStorage.setItem('theme', 'day');
+                    themeBtn.innerHTML = "🌙";
+                }
+            });
+        }
+
+
+        // --- PASSWORD SETTING ---
+        const myPassword = "prabhabdiary";
+
+        function checkPassword() {
+            var input = document.getElementById("passwordInput").value;
+            var errorMsg = document.getElementById("error-message");
+            var overlay = document.getElementById("login-overlay");
+            var content = document.getElementById("secret-content");
+
+            if (input === myPassword) {
+                overlay.style.opacity = "0";
+                overlay.style.transition = "opacity 0.5s ease";
+                setTimeout(() => {
+                    overlay.style.display = "none";
+                    content.style.display = "block";
+                }, 500);
+            } else {
+                errorMsg.style.display = "block";
+                var box = document.querySelector(".login-box");
+                box.style.animation = "shake 0.5s";
+                setTimeout(() => { box.style.animation = ""; }, 500);
+                document.getElementById("passwordInput").value = "";
+            }
+        }
+
+        document.getElementById("passwordInput").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+
+        // Navbar toggle script (regular)
+        const togglebtn = document.querySelector(".togglebtn");
+        const nav = document.querySelector(".navlinks");
+        if (togglebtn) {
+            togglebtn.addEventListener("click", () => {
+                togglebtn.classList.toggle("click");
+                nav.classList.toggle("open");
+            });
+        }
+    </script>
+</body>
+
+</html>
