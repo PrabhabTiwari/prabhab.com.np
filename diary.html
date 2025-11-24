@@ -165,7 +165,7 @@
     <div id="login-overlay">
         <div class="login-box">
             <i class="fa-solid fa-moon"></i>
-            <h2>Good Evening</h2>
+            <h2 id="greeting-text">Good Evening</h2>
             <p>Enter password to access diary</p>
 
             <input type="password" id="passwordInput" placeholder="Password">
@@ -215,7 +215,7 @@
 
                     <div class="projects-container">
 
-                        <a href="15 November 2025.pdf" target="_blank" title="View Diary Entry PDF">
+                        <a href="15.pdf" target="_blank" title="View Diary Entry PDF">
                             <div class="project-card diary-entry">
                                 <div class="diary-date"><i class="fa-regular fa-calendar-check"></i> November 15, 2025
                                 </div>
@@ -226,17 +226,6 @@
                                 </div>
                             </div>
                         </a>
-                        <!--
-                        <a href="diary_pdfs/november_22_2024.pdf" target="_blank" title="View Diary Entry PDF">
-                            <div class="project-card diary-entry">
-                                <div class="diary-date"><i class="fa-solid fa-user-secret"></i> November 22, 2024</div>
-                                <div class="project-title">Persistent Theme</div>
-                                <div class="project-description">
-                                    Created this hidden section of the website. Only I know the password to get in here.
-                                </div>
-                            </div>
-                        </a>
--->
                     </div>
                 </main>
             </div>
@@ -252,6 +241,33 @@
     </div>
 
     <script>
+        // Function to set the greeting based on the current hour
+        function setGreeting() {
+            const currentHour = new Date().getHours();
+            let greeting = "Good Evening"; // Default for late night/evening
+
+            // Time logic (using 24-hour format):
+            // 05:00 to 11:59 = Good Morning
+            // 12:00 to 17:59 = Good Afternoon
+            // 18:00 to 04:59 = Good Evening
+            if (currentHour >= 5 && currentHour < 12) {
+                greeting = "Good Morning";
+            } else if (currentHour >= 12 && currentHour < 18) {
+                greeting = "Good Afternoon";
+            } else {
+                greeting = "Good Evening";
+            }
+
+            // Update the text content of the <h2> element
+            const greetingElement = document.getElementById("greeting-text");
+            if (greetingElement) {
+                greetingElement.textContent = greeting;
+            }
+        }
+
+        // Run the greeting function immediately on page load
+        setGreeting();
+
         // --- THEME CHECK (Runs first to apply saved theme) ---
         const themeBtn = document.getElementById('theme-toggle');
         const body = document.body;
@@ -324,6 +340,5 @@
         }
     </script>
 </body>
-
 
 </html>
