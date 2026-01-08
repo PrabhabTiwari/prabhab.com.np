@@ -1,1 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Prabhab & Sandhu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap');
+
+        :root {
+            --primary: #d63384;
+            --secondary: #ff9a9e;
+            --glass: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --slide-width-desktop: 250px;
+            --slide-width-mobile: 160px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Deep Romantic Gradient */
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- DECORATIVE BACKGROUND PARTICLES --- */
+        .background-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-shape {
+            position: absolute;
+            bottom: -100px;
+            color: rgba(255, 255, 255, 0.4);
+            animation: floatUp 15s linear infinite;
+            font-size: 2rem;
+        }
+
+        /* Creating depth with different sizes/speeds */
+        .shape-1 {
+            left: 10%;
+            font-size: 4rem;
+            animation-duration: 12s;
+            opacity: 0.3;
+        }
+
+        .shape-2 {
+            left: 20%;
+            font-size: 2rem;
+            animation-duration: 18s;
+            animation-delay: 2s;
+            opacity: 0.6;
+        }
+
+        .shape-3 {
+            left: 35%;
+            font-size: 5rem;
+            animation-duration: 22s;
+            animation-delay: 5s;
+            filter: blur(2px);
+        }
+
+        .shape-4 {
+            left: 50%;
+            font-size: 3rem;
+            animation-duration: 14s;
+            animation-delay: 0s;
+        }
+
+        .shape-5 {
+            left: 65%;
+            font-size: 2.5rem;
+            animation-duration: 19s;
+            animation-delay: 3s;
+            opacity: 0.5;
+        }
+
+        .shape-6 {
+            left: 80%;
+            font-size: 6rem;
+            animation-duration: 25s;
+            animation-delay: 7s;
+            filter: blur(4px);
+        }
+
+        .shape-7 {
+            left: 90%;
+            font-size: 3rem;
+            animation-duration: 16s;
+            animation-delay: 1s;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.6;
+            }
+
+            80% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .main-wrapper {
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card-glass {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 2px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            padding: 2.5rem;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 3vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Corner Floral Decorations (CSS Shapes) */
+        .card-glass::before,
+        .card-glass::after {
+            content: '♥';
+            position: absolute;
+            font-size: 10rem;
+            color: rgba(255, 255, 255, 0.15);
+            font-family: sans-serif;
+            z-index: -1;
+        }
+
+        .card-glass::before {
+            top: -40px;
+            left: -20px;
+            transform: rotate(-20deg);
+        }
+
+        .card-glass::after {
+            bottom: -40px;
+            right: -20px;
+            transform: rotate(20deg);
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3rem, 8vw, 5rem);
+            /* Responsive Font Size */
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+            line-height: 1.1;
+        }
+
+        p.subtitle {
+            font-size: 1rem;
+            color: #864660;
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* --- TIMER GRID --- */
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 10px 5px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .time-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .number {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #555;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .heart-beat {
+            color: #ff4757;
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+            margin: 0 5px;
+        }
+
+        /* --- GALLERY SECTION --- */
+        .gallery-wrapper {
+            margin-top: 40px;
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        /* Fade effect on edges of gallery */
+        .gallery-wrapper::before,
+        .gallery-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 10%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .gallery-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.5), transparent);
+        }
+
+        .gallery-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.5), transparent);
+        }
+
+        .slider {
+            height: 220px;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .slide-track {
+            display: flex;
+            /* Width calculation: (Slide Width * Total Slides) */
+            /* We have 5 unique slides duplicated once = 10 slides total */
+            width: calc(var(--slide-width-desktop) * 10);
+            animation: scroll 25s linear infinite;
+        }
+
+        .slide {
+            height: 200px;
+            width: var(--slide-width-desktop);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            /* Gap between photos */
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .slide img:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            /* Move by half the total width (the width of the 5 unique slides) */
+            100% {
+                transform: translateX(calc(var(--slide-width-desktop) * -5));
+            }
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+
+        /* Tablet & Mobile Layout */
+        @media (max-width: 768px) {
+            .card-glass {
+                padding: 1.5rem;
+                margin-top: 1rem;
+            }
+
+            /* Change slider dimensions for mobile */
+            .slider {
+                height: 160px;
+            }
+
+            .slide {
+                height: 140px;
+                width: var(--slide-width-mobile);
+            }
+
+            /* Adjust animation calculation for mobile width */
+            .slide-track {
+                width: calc(var(--slide-width-mobile) * 10);
+            }
+
+            /* Redefine animation keyframes for mobile within the media query */
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(calc(var(--slide-width-mobile) * -5));
+                }
+            }
+        }
+
+        /* Small Mobile (iPhone SE etc) */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .timer-grid {
+                /* Force 3 on top, 2 on bottom or 2-2-1 layout */
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            /* Make last two items span full width to center them if 5 items */
+            .time-box:nth-child(4),
+            .time-box:nth-child(5) {
+                grid-column: span 1;
+                /* Keep them inline or adjust as needed */
+            }
+
+            /* Or simply let them flow: */
+            .timer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 columns */
+            }
+
+            .time-box:last-child {
+                grid-column: span 2;
+                /* Last item (Seconds) spans full width */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-decoration">
+        <div class="floating-shape shape-1">♥</div>
+        <div class="floating-shape shape-2">♥</div>
+        <div class="floating-shape shape-3">♥</div>
+        <div class="floating-shape shape-4">♥</div>
+        <div class="floating-shape shape-5">♥</div>
+        <div class="floating-shape shape-6">♥</div>
+        <div class="floating-shape shape-7">♥</div>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="card-glass">
+            <h1>Prabhab & Sandhu</h1>
+            <p class="subtitle">Together For</p>
+
+            <div class="timer-grid">
+                <div class="time-box">
+                    <span class="number" id="months">0</span>
+                    <span class="label">Months</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="days">0</span>
+                    <span class="label">Days</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="hours">0</span>
+                    <span class="label">Hours</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="minutes">0</span>
+                    <span class="label">Mins</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="seconds">0</span>
+                    <span class="label">Secs</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 15px; font-size: 0.9rem; color: #555;">
+                Since November 15, 2025 <span class="heart-beat">❤</span>
+            </div>
+        </div>
+
+        <div class="gallery-wrapper">
+            <div class="slider">
+                <div class="slide-track">
+                    <div class="slide"><img
+                            src="/sp/sp1.JPG"
+                            alt="Memory"></div>
+                    <div class="slide"><img
+                            src="/sp/sp2.JPG"
+                            alt="Memory"></div>
+                    <div class="slide"><img
+                            src="/sp/sp3.JPG"
+                            alt="Memory"></div>
+                    <div class="slide"><img
+                            src="/sp/sp4.JPG"
+                            alt="Memory"></div>
+                    <div class="slide"><img
+                            src="/sp/sp5.JPG"
+                            alt="Memory"></div>
+
+                     <div class="slide"><img
+                            src="/sp/sp1.JPG"
+                            alt="Memory"></div>
+                    <div class="slide"><img
+                            src="/sp/sp2.JPG"
+                            alt="Memory"></div>
+                    <div class="slide"><img
+                            src="/sp/sp3.JPG"
+                            alt="Memory"></div>
+                    <div class="slide"><img
+                            src="/sp/sp4.JPG"
+                            alt="Memory"></div>
+                    <div class="slide"><img
+                            src="/sp/sp5.JPG"
+                            alt="Memory"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Target Date: November 15, 2025 at 12:40 AM
+        const startDate = new Date(2025, 10, 15, 0, 40, 0);
+
+        const els = {
+            months: document.getElementById('months'),
+            days: document.getElementById('days'),
+            hours: document.getElementById('hours'),
+            minutes: document.getElementById('minutes'),
+            seconds: document.getElementById('seconds'),
+        };
+
+        function updateTimer() {
+            const now = new Date();
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
+
+            if (days < 0) {
+                months--;
+                let prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            let totalMonths = months + (years * 12);
+
+            let tempDate = new Date(startDate);
+            tempDate.setFullYear(tempDate.getFullYear() + years);
+            tempDate.setMonth(tempDate.getMonth() + months);
+            tempDate.setDate(tempDate.getDate() + days);
+
+            let diffMs = now - tempDate;
+            let hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+
+            els.months.innerText = totalMonths;
+            els.days.innerText = days;
+            els.hours.innerText = hours < 10 ? '0' + hours : hours;
+            els.minutes.innerText = minutes < 10 ? '0' + minutes : minutes;
+            els.seconds.innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+
+</html>
